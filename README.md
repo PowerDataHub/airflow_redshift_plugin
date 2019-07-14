@@ -10,6 +10,32 @@ Move data from [Amazon Redshift](https://aws.amazon.com/pt/redshift/) to other s
 
 Executes an UNLOAD command to s3 and load into Apache Druid
 
+```
+    :param s3_bucket: reference to a specific S3 bucket
+    :type s3_bucket: str
+    :param s3_key: reference to a specific S3 key
+    :type s3_key: str
+    :param schema: reference to a specific schema in redshift database
+    :type schema: str
+    :param table: reference to a specific table in redshift database
+    :type table: str
+    :param sql: Custom SQL statement to execute
+    :type sql: str
+    :param druid_ingest_spec: druid ingestion json spec
+    :type druid_ingest_spec: json
+    :param unload_options: reference to a list of UNLOAD options
+    :type unload_options: list
+    :param include_header: Should include headers in the final file?
+    :type include_header: bool
+    :param autocommit: if True perform autocommit
+    :type autocommit: bool
+    :param aws_conn_id: reference to a specific S3 connection
+    :type aws_conn_id: str
+    :param redshift_conn_id: reference to a specific redshift database
+    :type redshift_conn_id: str
+    :param druid_conn_id: reference to a specific Druid overlord connection
+    :type druid_conn_id: str
+```
 ### RedshiftToS3CustomOperador
 
 Executes an UNLOAD command to s3 as a CSV with headers

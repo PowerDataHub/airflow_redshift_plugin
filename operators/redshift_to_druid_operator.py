@@ -14,9 +14,9 @@ class RedshiftToDruidOperator(BaseOperator):
     :type s3_bucket: str
     :param s3_key: reference to a specific S3 key
     :type s3_key: str
-    :param schema: reference to a specific schema in redshift database, not used if custom sql specified
+    :param schema: reference to a specific schema in redshift database
     :type schema: str
-    :param table: reference to a specific table in redshift database, not used if custom sql specified
+    :param table: reference to a specific table in redshift database
     :type table: str
     :param sql: Custom SQL statement to execute
     :type sql: str
@@ -24,11 +24,16 @@ class RedshiftToDruidOperator(BaseOperator):
     :type druid_ingest_spec: json
     :param unload_options: reference to a list of UNLOAD options
     :type unload_options: list
-
-    :param redshift_conn_id: reference to a specific redshift database
-    :type redshift_conn_id: str
+    :param include_header: Should include headers in the final file?
+    :type include_header: bool
+    :param autocommit: if True perform autocommit
+    :type autocommit: bool
     :param aws_conn_id: reference to a specific S3 connection
     :type aws_conn_id: str
+    :param redshift_conn_id: reference to a specific redshift database
+    :type redshift_conn_id: str
+    :param druid_conn_id: reference to a specific Druid overlord connection
+    :type druid_conn_id: str
 
     """
 
@@ -53,8 +58,8 @@ class RedshiftToDruidOperator(BaseOperator):
         sql=None,
         druid_ingest_spec=None,
         unload_options=tuple(),
-        autocommit=False,
         include_header=False,
+        autocommit=False,
         aws_conn_id="aws_default",
         redshift_conn_id="postgres_default",
         druid_conn_id="druid_ingest_default",
