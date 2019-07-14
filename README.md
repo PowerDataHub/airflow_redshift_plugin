@@ -2,14 +2,21 @@
 
 # Airflow Plugin - Redshift
 
-Move data from [Amazon Redshift](https://aws.amazon.com/pt/redshift/) to 3rd party sources
+Move data from [Amazon Redshift](https://aws.amazon.com/pt/redshift/) to other sources like Amazon S3, Apache Druid and more
 
 ## Operators
 
 ### RedshiftToDruidOperator
 
-Unloads a Redshift table to S3 and load into Apache Druid
+Executes an UNLOAD command to s3 and load into Apache Druid
 
+### RedshiftToS3CustomOperador
+
+Executes an UNLOAD command to s3 as a CSV with headers
+
+### S3ToRedshiftOperator
+
+Executes an COPY command to load a S3 file into Redshift
 
 ---
 [![forthebadge](https://forthebadge.com/images/badges/made-with-python.svg)](https://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/contains-cat-gifs.svg)](https://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/60-percent-of-the-time-works-every-time.svg)](https://forthebadge.com)

@@ -13,6 +13,7 @@ from airflow.hooks.postgres_hook import PostgresHook
 
 
 class S3ToRedshiftOperator(BaseOperator):
+
     """
     S3 To Redshift Operator
     :param redshift_conn_id:        The destination redshift connection id.
