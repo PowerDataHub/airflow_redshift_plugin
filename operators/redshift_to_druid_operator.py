@@ -1,9 +1,11 @@
 from airflow.models import BaseOperator
 from airflow.hooks.postgres_hook import PostgresHook
 from airflow.hooks.S3_hook import S3Hook
-
+from airflow.hooks.druid_hook import DruidHook
 from airflow.exceptions import AirflowException
 from airflow.utils.decorators import apply_defaults
+
+import json
 
 
 class RedshiftToDruidOperator(BaseOperator):
@@ -90,6 +92,7 @@ class RedshiftToDruidOperator(BaseOperator):
 
     def execute(self, context):
         self.unload()
+        self.druid_ingest()
 
     def unload(self):
         credentials = self.s3_hook.get_credentials()
@@ -157,3 +160,9 @@ class RedshiftToDruidOperator(BaseOperator):
         self.log.info("Executing UNLOAD command...")
         self.pg_hook.run(unload_query, self.autocommit)
         self.log.info("UNLOAD command complete...")
+
+    def druid_ingest(self):
+        druid_hook = DruidHook(druid_ingest_conn_id=self.druid_conn_id)
+
+        self.log.info("Submitting druid task: %s", json.dumps(self.druid_ingest_spec))
+        druid_hook.submit_indexing_job(self.druid_ingest_spec)
